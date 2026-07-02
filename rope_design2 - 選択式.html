@@ -28,11 +28,6 @@
   </nav>
   <div class="panel">
     <div class="label">設計した値を入れてください</div>
-     <div class="input-row">
-      <label for="break">破断荷重<span class="q-font">Q</span>[kN]</label>
-      <input id="break" type="number" />
-      <button type="button" class="btn" style="margin-left:8px;" onclick="showHint('break')">ヒント</button>
-    </div>
     <div class="input-row">
       <label for="dw">ワイヤロープ径<span class="dw-font">dw</span>[mm]</label>
       <select id="dw">
@@ -47,16 +42,6 @@
         <option value="22.4">22.4</option>
       </select>
       <button type="button" class="btn" style="margin-left:8px;" onclick="showHint('dw')">ヒント</button>
-    </div>
-     <div class="input-row">
-      <label for="rope">ワイヤロープ選択</label>
-      <select id="rope" onchange="onRopeChange()">
-        <option value="">--選択してください--</option>
-        <option value="6x19">裸普通ZよりA種(6×19)</option>
-        <option value="6x24">裸普通ZよりA種(6×24)</option>
-        <option value="6x37">裸普通ZよりA種(6×37)</option>
-      </select>
-      <button type="button" class="btn" style="margin-left:8px;" onclick="showHint('rope')">ヒント</button>
     </div>
     <div class="input-row">
       <label for="sin">シンブルの呼び[mm]</label>
@@ -74,47 +59,12 @@
       alert('メニューが押されました');
     }
     function onDecide() {
-      const breakLoad = parseFloat(document.getElementById('break').value);
-      const rope = document.getElementById('rope').value;
       const dw = parseFloat(document.getElementById('dw').value);
       const sin = parseFloat(document.getElementById('sin').value);
       if (isNaN(dw) || isNaN(sin)) {
         alert('ワイヤロープ径とシンブルの呼び、両方の値を入力してください');
         return;
     }
-
-
-      
-      if (isNaN(breakLoad)) {
-        alert('破断荷重に有効な数値を入力してください');
-        return;
-      }
-      const w = parseFloat(localStorage.getItem('kihon_w'));
-      if (isNaN(w)) {
-        alert('基準となる巻き上げ荷重が設定されていません。先に基準値を入力してください');
-        return;
-      }
-
-      const expectedBreak = w * 6;
-      if (breakLoad > expectedBreak) {
-        alert('破断荷重が大きいです。計算をやり直してください');
-        return;
-      }
-      if (breakLoad < expectedBreak) {
-        alert('破断荷重が小さいです。計算をやり直してください');
-        return;
-      }
-
-       
-      if (!rope || rope.trim() === '') {
-        alert('ワイヤロープを選択してください');
-        return;
-      }
-      
-
-  
-  // 必要に応じて計算処理を追加
-
       // rope_design_breakの値を参照してropekeianswerを判定
       const breakValue = parseFloat(localStorage.getItem('rope_design_break'));
       let ropekeianswer = null;
@@ -169,8 +119,6 @@
 
       
       // 値をlocalStorageに保存
-      localStorage.setItem('rope_design_break', breakLoad);
-      localStorage.setItem('rope_design_rope', rope);
       localStorage.setItem('rope_dw', dw);
       localStorage.setItem('rope_sin', sin);
       alert('値が保存されました');
@@ -184,12 +132,6 @@
         alert('教科書 P.9 表2.7 を参照してください。裸普通ZよりA種を選んでいます。');
       } else if(type === 'sin') {
         alert('教科書 P.10 表2.8 を参照してください。適用するワイヤーロープ径 d から求められます。');
-      }
-      if (type === 'rope') {
-        alert('裸普通ZよりA種のロープを選択しています。教科書の表を参照してください。');
-      } else if (type === 'break') {
-        const w = localStorage.getItem('kihon_w');
-        alert('教科書P.3、式（２・１）を使用してください。巻き上げ荷重は ' + w + ' kN です。破断荷重の目安はこれに基づきます。');
       }
     }
   </script>

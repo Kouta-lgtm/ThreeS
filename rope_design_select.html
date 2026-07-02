@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>基本設計</title>
+  <title>ワイヤーロープ選定</title>
   <style>
     body { font-family: 'SansSerif', sans-serif; margin: 0; }
     .menubar { display: flex; background: #eee; padding: 8px; }
     .menu { margin-right: 20px; }
-    .panel { margin: 30px auto; width: 400px; }
+    .panel { margin: 30px auto; width: 260px; }
     .label { font-size: 20px; font-weight: bold; margin-bottom: 20px; text-align: center;}
     .input-row { margin-bottom: 15px; display: flex; align-items: center; }
     .input-row label { width: 180px; }
@@ -28,9 +28,11 @@
   </nav>
     
 <div class="panel">
-    <div class="label">基本設計項目一覧</div>
-    <button class="btn" onclick="onDecide()">最大巻き上げ荷重W[kN]</button>
-    <button class="btn" onclick="onDecide()">揚程L[m]</button>
+    <div class="label">ワイヤーロープ項目一覧</div>
+    <button class="btn" onclick="onDecide()">破断荷重Q[kN]</button>
+    <button class="btn" onclick="onDecide()">ワイヤーロープ径dw[mm]</button>
+    <button class="btn" onclick="onDecide()">ワイヤーロープ選択</button>
+    <button class="btn" onclick="onDecide()">シンブルの呼び[mm]</button>
   </div>
   <script>
     function onFileOpen() {
@@ -40,7 +42,7 @@
       alert('メニューが押されました');
     }
     function onDecide() {
-      window.location.href = 'kihon.html';
+      window.location.href = 'rope_design2 - 統合.html';
     }
     function onFileOpen() {
     }
